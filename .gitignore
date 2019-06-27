@@ -5,3 +5,4 @@ pip-selfcheck.json
 pyvenv.cfg
 .directory
 app/jupyter_notebooks/.ipynb_checkpoints/*
+share/
