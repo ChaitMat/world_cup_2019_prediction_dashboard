@@ -14,12 +14,16 @@ app.layout = html.Div([
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    if pathname == '/upload_file':
-         return upload_layout
-    elif pathname.startswith('/submit/'):
-        return submit_layout 
+    if pathname != None:
+        if pathname == '/upload_file':
+            return upload_layout
+        elif pathname.startswith('/submit/'):
+            return submit_layout 
+        else:
+            return '404'
+
     else:
-        return '404'
+         return '404'
 
 if __name__ == '__main__':
     app.run_server(debug=True)

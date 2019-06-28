@@ -58,6 +58,13 @@ for match in resultTable:
         resultDict['Date'] = dateText
         resultDict['Result'] = textSplit[0].rstrip()
         resultList.append(resultDict)
+
+    if 'beat' in resultText:
+        resultDict = {}
+        textSplit = resultText.split("beat")
+        resultDict['Date'] = dateText
+        resultDict['Result'] = textSplit[0].rstrip()
+        resultList.append(resultDict)
         
     elif 'vs' and '(Rained off)' in resultText:
         resultDict = {}
