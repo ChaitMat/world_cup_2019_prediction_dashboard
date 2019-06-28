@@ -6,3 +6,5 @@ pyvenv.cfg
 .directory
 app/jupyter_notebooks/.ipynb_checkpoints/*
 share/
+etc/
+app/__pycache__/
