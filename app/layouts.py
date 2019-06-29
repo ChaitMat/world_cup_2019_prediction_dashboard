@@ -44,10 +44,13 @@ def uploadShowData(dataTable,link):
 
     table_header = {'backgroundColor': 'rgb(248,248,248)', 'fontWeight': 'bold'}
 
-    upload_show_data = html.Div([
+    upload_show_data = html.Div([html.Div([
+                                    html.Div([
                         html.H3('Check predictions and submit.'),
                         html.H5('Name: '+ dataTable[6], id = 'emp-name'),
                         html.H5('EM No.: ' + dataTable[5], id = 'emp-id'),
+                                    ],className = "card-content"),
+                                ],className = "card"),
                         html.Div([
                                 html.Div([
                                         
@@ -160,11 +163,14 @@ def showData(dataTable, name, emno, score):
 
     table_header = {'backgroundColor': 'rgb(248,248,248)', 'fontWeight': 'bold'}
     
-    showDataLayout = html.Div([
+    showDataLayout = html.Div([html.Div([
+                                    html.Div([
                 html.H3('Current score'),
                 html.H5('Name: '+ name, id = 'emp-name'),
                 html.H5('EM No.: ' + emno, id = 'emp-id'),
                 html.H3('Your current score: '+str(score)),
+                                 ],className = "card-content"),
+                            ],className = "card"),
                 html.Div([
                         html.Div([
                             html.Div([
