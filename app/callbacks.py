@@ -9,12 +9,11 @@ import dash_table
 import pandas
 from urllib.parse import parse_qs
 
-
 from app import app
 from get_individual_data import getIndvData
 from calculate_score import calculate_score
 from display_individual_data import dispIndvData
-from layouts import showData
+from layouts import showData, uploadShowData
 
 @app.callback(Output('output-data-upload', 'children'),
               [Input('upload-data', 'contents')],
@@ -34,89 +33,13 @@ def upload_data(contents, filename):
             return '404'
 
         link = "/submit/name="+ dataTable[6]+'&emno='+dataTable[5]
+
+        uploadDataLayout = uploadShowData(dataTable, link)
             
-        return html.Div([
-                html.H3('Check predictions and submit.'),
-                html.H5('Name: '+ dataTable[6], id = 'emp-name'),
-                html.H5('EM No.: ' + dataTable[5], id = 'emp-id'),
-                html.Div([
-                        html.Div([
-                                
-                            html.Div([
-                                html.Div([
-                                    html.Div([
-                                            html.H3('League Matches'),
-                                            dash_table.DataTable(
-                                            id='datatable-league-predictions',
-                                            data=dataTable[0].to_dict('records'),
-                                            columns=[{"name": i, "id": i} for i in dataTable[0].columns], 
-                                            editable=False,
-                                            style_table={'maxWidth': '300px'},
-                                            style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'}
-                                            )
-                                        ],className = "card-content")
-                                    ], className = "card")
-                            ], className="col l4"),
-                                            
-                                            
-                             html.Div([
-                                    html.Div([
-                                        html.Div([
-                                                html.H3('Semi Finals'),
-                                                dash_table.DataTable(
-                                                id='datatable-semi-final-predictions',
-                                                data=dataTable[1].to_dict('records'),
-                                                columns=[{"name": i, "id": i} for i in dataTable[1].columns], 
-                                                editable=False,
-                                                style_table={'maxWidth': '300px'},
-                                                style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'}
-                                                ),
-                                                
-                                                html.H3('Finals'),
-                                                dash_table.DataTable(
-                                                id='datatable-semi-final-predictions',
-                                                data=dataTable[2].to_dict('records'),
-                                                columns=[{"name": i, "id": i} for i in dataTable[2].columns], 
-                                                editable=False,
-                                                style_table={'maxWidth': '300px'},
-                                                style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'}
-                                                ),
-                                                
-                                                html.H3('Semi Final Teams'),
-                                                dash_table.DataTable(
-                                                id='datatable-semi-final-predictions',
-                                                data=dataTable[3].to_dict('records'),
-                                                columns=[{"name": i, "id": i} for i in dataTable[3].columns], 
-                                                editable=False,
-                                                style_table={'maxWidth': '300px'},
-                                                style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'}
-                                                ),
-                                                
-                                                html.H3('Players'),
-                                                dash_table.DataTable(
-                                                id='datatable-semi-final-predictions',
-                                                data=dataTable[4].to_dict('records'),
-                                                columns=[{"name": i, "id": i} for i in dataTable[4].columns], 
-                                                editable=False,
-                                                style_table={'maxWidth': '300px'},
-                                                style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'}
-                                                ),
-                                                
-                                                html.H3('Submit Predictions'),
-                                                html.P('Check your predicions and hit submit.'),
-                                                html.P('Each employee can only submit their predictions only once.'),
-                                                html.Button(dcc.Link("Submit", href=link), id='submit-button')
-                                                
-                                            ],className = "card-content")
-                                        ], className = "card")
-                                ], className="col l4"),
-                        ], className="row")
-                    ])
-                ])
+        return uploadDataLayout
     
 
-@app.callback(Output('page-content2', 'children'),
-              [Input('url2', 'pathname')])
+
 def submit(pathname):
     data = (pathname).split('/')[2]
     name = parse_qs(data)['name'][0]

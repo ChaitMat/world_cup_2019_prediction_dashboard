@@ -3,8 +3,9 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app
-from layouts import upload_layout, submit_layout
+from layouts import upload_layout
 import callbacks
+from callbacks import submit
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
@@ -18,6 +19,7 @@ def display_page(pathname):
         if pathname == '/upload_file':
             return upload_layout
         elif pathname.startswith('/submit/'):
+            submit_layout = submit(pathname)
             return submit_layout 
         else:
             return '404'
