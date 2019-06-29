@@ -1,7 +1,7 @@
 import pandas as pd
 import sqlite3
 
-def calculate_score(emno):
+def calculate_score(emno, name):
 
     conn1 =  sqlite3.connect("./database/predictions.sqlite")
     predictions = pd.read_sql_query("SELECT * FROM "+emno, conn1) ##
@@ -21,7 +21,8 @@ def calculate_score(emno):
     conn2.close()
     conn3 = sqlite3.connect("./database/score.sqlite")
     score = pd.read_sql_query("SELECT * FROM scores", conn3)
-    score[emno] = predictions["Points"].sum() ##
+    emnoName = emno+':'+name
+    score[emnoName] = predictions["Points"].sum() ##
     score.to_sql('scores', conn3, if_exists= 'replace', index = False)
     conn3.close()
 

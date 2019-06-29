@@ -3,7 +3,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app
-from layouts import upload_layout
+from layouts import upload_layout, mainPageLayout
 import callbacks
 from callbacks import submit
 
@@ -21,6 +21,8 @@ def display_page(pathname):
         elif pathname.startswith('/submit/'):
             submit_layout = submit(pathname)
             return submit_layout 
+        elif pathname == '/':
+            return mainPageLayout
         else:
             return '404'
 

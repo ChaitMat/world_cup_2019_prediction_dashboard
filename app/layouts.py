@@ -2,6 +2,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_table
 
+from get_rank import get_rank_table
+
 upload_layout = html.Div(children = [
     html.H3(
         children='Upload Data'
@@ -109,7 +111,7 @@ def uploadShowData(dataTable,link):
                                                         style_table={'maxWidth': '300px'},
                                                         style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'},
                                                         style_data_conditional = table_style,
-                                                         style_header = table_header   
+                                                        style_header = table_header   
                                                         ),
                                                         
                                                         html.H3('Players'),
@@ -248,3 +250,40 @@ def showData(dataTable, name, emno, score):
                 ])
                  
     return showDataLayout
+
+
+mainPageLayout = html.Div([
+
+    html.Div([
+        html.Div([
+            html.H3('World Cup 2019 Predictions')
+        ],className = 'card-content')
+    ], className = 'card' ),
+
+    html.Div([
+        html.Div([
+            html.Div([
+                html.Div([
+                    html.Span(['Rank table'], className = 'card-title'),
+                    dash_table.DataTable(
+                        data=get_rank_table().to_dict('records'),
+                        columns=[{"name": i, "id": i} for i in get_rank_table().columns], 
+                        editable=False,
+                        style_table={'maxWidth': '300px'},
+                        style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'},
+                        style_data_conditional = [
+
+                                                    {
+                                                        'if' : {'row_index': 'odd'},
+                                                        'backgroundColor': 'rgb(183,238,255)'
+                                                    },
+
+                                                ],
+                        style_header = {'backgroundColor': 'rgb(248,248,248)', 'fontWeight': 'bold'}
+                    )
+                ], className = 'card-content')
+            ], className = 'card')
+        ], className = 'col l4')
+    ], className = 'row')
+
+])

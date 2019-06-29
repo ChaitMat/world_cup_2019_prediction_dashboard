@@ -45,7 +45,7 @@ def submit(pathname):
     name = parse_qs(data)['name'][0]
     emno = parse_qs(data)['emno'][0]
     
-    score = calculate_score(emno)
+    score = calculate_score(emno, name)
 
     dataTable = dispIndvData(emno)
 
