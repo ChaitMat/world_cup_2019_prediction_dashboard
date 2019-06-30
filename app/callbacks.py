@@ -54,3 +54,22 @@ def submit(pathname):
 
     return showDataLayout
 
+
+@app.callback(
+    dash.dependencies.Output('your-score-container', 'children'),
+    [dash.dependencies.Input('your-score-dropdown', 'value')])
+def yourPredictions(value):
+
+    if value != None:
+
+        emno = value.split(':')[0]  
+        name = value.split(':')[1]  
+
+        score = calculate_score(emno, name)
+
+        dataTable = dispIndvData(emno)
+
+        showDataLayout = showData(dataTable,name,emno,int(score))
+
+        return showDataLayout
+
