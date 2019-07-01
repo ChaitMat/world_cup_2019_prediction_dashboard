@@ -29,7 +29,7 @@ def updateResults():
 
     df = pd.DataFrame(resultList)
     updated_results = df[10:].reset_index(drop =True)
-    conn = sqlite3.connect('../database/results.sqlite')
+    conn = sqlite3.connect('./database/results.sqlite')
     updated_results.to_sql("results", conn, if_exists= 'replace', index = False)
     conn.close()
 
