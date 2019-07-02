@@ -1,12 +1,11 @@
-#!/home/cmm/My_Projects/03_World_Cup_Prediction_2019/bin/python3
-# EASY-INSTALL-ENTRY-SCRIPT: 'dash==1.0.0','console_scripts','dash-generate-components'
-__requires__ = 'dash==1.0.0'
+#!/home/cmm/My_Projects/03_World_Cup_Prediction_2019/app/bin/python3
+
+# -*- coding: utf-8 -*-
 import re
 import sys
-from pkg_resources import load_entry_point
+
+from dash.development.component_generator import cli
 
 if __name__ == '__main__':
     sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
-    sys.exit(
-        load_entry_point('dash==1.0.0', 'console_scripts', 'dash-generate-components')()
-    )
+    sys.exit(cli())

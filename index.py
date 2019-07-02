@@ -3,7 +3,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 from app import app
-from layouts import upload_layout, mainPage
+from layouts import mainPage, uploadLayout
 import callbacks
 from callbacks import submit
 
@@ -17,6 +17,7 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname != None:
         if pathname == '/upload_file':
+            upload_layout = uploadLayout()
             return upload_layout
         elif pathname.startswith('/submit/'):
             submit_layout = submit(pathname)

@@ -5,37 +5,189 @@ import plotly.graph_objs as go
 
 from get_rank import get_rank_table
 from get_graph_data import getGraphData
+from create_blank_table import createBlanktable
 
-upload_layout = html.Div(children = [
-    html.H3(
-        children='Upload Data'
-    ), html.P(
-        children='Upload the completely filled excel file.(Only *xls/*xlxs files)'
-    ),
-    dcc.Upload(
-        id='upload-data',
-        children=html.Div([
-            'Drag and Drop or ',
-            html.A('Select Files')
-        ]),
-        style={
-            'width': '100%',
-            'height': '60px',
-            'lineHeight': '60px',
-            'borderWidth': '1px',
-            'borderStyle': 'dashed',
-            'borderRadius': '5px',
-            'textAlign': 'center',
-            'margin': '10px'
-        },
+def uploadLayout():
+
+    dataTable = createBlanktable()
+
+
+    table_style = [
+
+                     {
+                        'if' : {'row_index': 'odd'},
+                        'backgroundColor': 'rgb(183,238,255)'
+                    },
+
+                   ]
+
+    table_header = {'backgroundColor': 'rgb(248,248,248)', 'fontWeight': 'bold'}
+
+    styleCell=[
+        {'if': {'column_id': 'Predictions'},
+         'width': '50%'}
+    ]
+
+
+    upload_layout = html.Div(children = [
+         html.Div([
+            html.Div([
+                html.Div([
+                        
+                    html.Div([
+                        html.Div([
+                            html.Div([
+
+                                html.H3(children='Upload Data'), 
+                                html.H5(children='Upload your excel sheet or enter your predictions manually in the table below.'), 
+                                html.P(children='Upload the completely filled excel file.(Only *xls/*xlxs files)'),
+
+                            ],className = "card-content")
+                        ], className = "card")
+                    ], className="col l12"),
+                ], className="row")
+            ])
         
-        multiple=False
-    ),
-    html.Div(id='output-data-upload'),
-])
+        ], id='output-data-upload'),
+
+        dcc.Upload(
+            id='upload-data',
+            children=html.Div([
+                'Drag and Drop or ',
+                html.A('Select Files')
+            ]),
+            style={
+                'width': '100%',
+                'height': '60px',
+                'lineHeight': '60px',
+                'borderWidth': '1px',
+                'borderStyle': 'dashed',
+                'borderRadius': '5px',
+                'textAlign': 'center',
+                'margin': '10px'
+            },
+            
+            multiple=False
+        ),
+
+        html.Div([
+
+            html.Div([
+                html.Div([
+                    html.Div([
+                            
+                        html.Div([
+                            html.Div([
+                                html.Div([
+                                    html.H5('Enter your name'),
+                                    dcc.Input(id='name', type='text'),
+                                    html.H5('Enter your employee no.(Ex.: EM310)'),
+                                    dcc.Input(id='emno', type='text'),
+                                ],className = "card-content")
+                            ], className = "card")
+                        ], className="col l12"),
+                    ], className="row")
+                ])
+            
+            ]),
+
+
+
+            html.Div([
+                html.Div([
+                    html.Div([
+                            
+                        html.Div([
+                            html.Div([
+                                html.Div([
+                                        html.H3('League Matches'),
+                                        dash_table.DataTable(
+                                        id='datatable-league-predictions',
+                                        data=dataTable[0].to_dict('records'),
+                                        columns=[{"name": i, "id": i} for i in dataTable[0].columns], 
+                                        editable=False,
+                                        style_cell_conditional =  styleCell,
+                                        style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'},
+                                        style_data_conditional = table_style,
+                                        style_header = table_header   
+                                        )
+                                    ],className = "card-content")
+                                ], className = "card")
+                        ], className="col l6"),
+                                        
+                                                        
+                        html.Div([
+                                html.Div([
+                                    html.Div([
+                                        html.H3('Semi Finals'),
+                                        dash_table.DataTable(
+                                        id='datatable-semi-final-predictions',
+                                        data=dataTable[1].to_dict('records'),
+                                        columns=[{"name": i, "id": i} for i in dataTable[1].columns], 
+                                        editable=True,
+                                        style_cell_conditional =  styleCell,
+                                        style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'},
+                                        style_data_conditional = table_style,
+                                        style_header = table_header   
+                                        ),
+                                        
+                                        html.H3('Finals'),
+                                        dash_table.DataTable(
+                                        id='datatable-semi-final-predictions',
+                                        data=dataTable[2].to_dict('records'),
+                                        columns=[{"name": i, "id": i} for i in dataTable[2].columns], 
+                                        editable=True,
+                                        style_cell_conditional =  styleCell,
+                                        style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'},
+                                        style_data_conditional = table_style,
+                                        style_header = table_header   
+                                        ),
+                                        
+                                        html.H3('Semi Final Teams'),
+                                        dash_table.DataTable(
+                                        id='datatable-semi-final-predictions',
+                                        data=dataTable[3].to_dict('records'),
+                                        columns=[{"name": i, "id": i} for i in dataTable[3].columns], 
+                                        editable=True,
+                                        style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'},
+                                        style_data_conditional = table_style,
+                                        style_header = table_header   
+                                        ),
+                                        
+                                        html.H3('Players'),
+                                        dash_table.DataTable(
+                                        id='datatable-semi-final-predictions',
+                                        data=dataTable[4].to_dict('records'),
+                                        columns=[{"name": i, "id": i} for i in dataTable[4].columns], 
+                                        editable=True,
+                                        style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'},
+                                        style_data_conditional = table_style,
+                                        style_header = table_header   
+                                        ),
+                                        
+                                        # html.H3('Submit Predictions'),
+                                        # html.P('Check your predicions and hit submit.'),
+                                        # html.P('Each employee can only submit their predictions only once.'),
+                                        # html.Button(dcc.Link("Submit", href=link), id='submit-button')
+                                        
+                                    ],className = "card-content")
+                                ], className = "card")
+                        ], className="col l6"),
+                    ], className="row")
+                ])
+            
+            ]),
+        ], id='output-data-upload'),
+    ])
+
+    
+
+    
+    return upload_layout
  
 
 def uploadShowData(dataTable,link):
+
 
     table_style = [
 
@@ -63,7 +215,7 @@ def uploadShowData(dataTable,link):
                                             html.Div([
                                                     html.H3('League Matches'),
                                                     dash_table.DataTable(
-                                                    id='datatable-league-predictions',
+                                                    # id='datatable-league-predictions',
                                                     data=dataTable[0].to_dict('records'),
                                                     columns=[{"name": i, "id": i} for i in dataTable[0].columns], 
                                                     editable=False,
@@ -82,7 +234,7 @@ def uploadShowData(dataTable,link):
                                                 html.Div([
                                                         html.H3('Semi Finals'),
                                                         dash_table.DataTable(
-                                                        id='datatable-semi-final-predictions',
+                                                        # id='datatable-semi-final-predictions',
                                                         data=dataTable[1].to_dict('records'),
                                                         columns=[{"name": i, "id": i} for i in dataTable[1].columns], 
                                                         editable=False,
