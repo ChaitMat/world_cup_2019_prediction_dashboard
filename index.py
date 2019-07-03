@@ -6,6 +6,7 @@ from app import app
 from layouts import mainPage, uploadLayout
 import callbacks
 from callbacks import submit
+from update_results import updateResults
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
@@ -25,6 +26,9 @@ def display_page(pathname):
         elif pathname == '/':
             main_page_layout = mainPage()
             return main_page_layout
+        elif pathname == '/updateresults':
+            updateResults()
+            return 'Done'
         else:
             return '404'
 

@@ -105,7 +105,7 @@ def uploadLayout():
                                         id='datatable-league-predictions',
                                         data=dataTable[0].to_dict('records'),
                                         columns=[{"name": i, "id": i} for i in dataTable[0].columns], 
-                                        editable=False,
+                                        editable=True,
                                         style_cell_conditional =  styleCell,
                                         style_cell = {"fontFamily": "Arial", "size": 10, 'textAlign': 'left'},
                                         style_data_conditional = table_style,
@@ -234,7 +234,7 @@ def uploadShowData(dataTable,link):
                                                 html.Div([
                                                         html.H3('Semi Finals'),
                                                         dash_table.DataTable(
-                                                        # id='datatable-semi-final-predictions',
+                                                        id='datatable-semi-final-predictions',
                                                         data=dataTable[1].to_dict('records'),
                                                         columns=[{"name": i, "id": i} for i in dataTable[1].columns], 
                                                         editable=False,

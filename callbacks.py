@@ -21,25 +21,26 @@ from layouts import showData, uploadShowData
               State('upload-data', 'filename')])
               
 def upload_data(excel, table_league, filename):
-    if excel is not None:
-        content_type, content_string = excel.split(',')
+    if table_league is not None:
+        if excel is not None:
+            content_type, content_string = excel.split(',')
 
-        decoded = base64.b64decode(content_string)
+            decoded = base64.b64decode(content_string)
 
 
-        try:
-            if 'xls' in filename:
-                print(table_league)
+            try:
+                if 'xls' in filename:
+                    print(table_league)
 
-        except Exception as e:
-            print(e)
-            return '404'
+            except Exception as e:
+                print(e)
+                return '404'
 
-        # link = "/submit/name="+ dataTable[6]+'&emno='+dataTable[5]
+            # link = "/submit/name="+ dataTable[6]+'&emno='+dataTable[5]
 
-        # uploadDataLayout = uploadShowData(dataTable, link)
-            
-        # return league_data
+            # uploadDataLayout = uploadShowData(dataTable, link)
+                
+    return table_league
     
 
 

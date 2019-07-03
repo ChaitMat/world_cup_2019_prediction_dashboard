@@ -38,3 +38,8 @@ def updateResults():
     for i in emno:
         updatePoints(i)
 
+
+if __name__ == "__main__":
+
+    updateResults()
+
