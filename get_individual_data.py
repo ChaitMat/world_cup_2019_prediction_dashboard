@@ -5,19 +5,47 @@ import io
 
 import dash_table
 
-def getIndvData(excel_raw, table_league):
+def getIndvData(excel_raw, data):
 
     df = pd.read_excel(io.BytesIO(excel_raw))
 
+    upData = []
+
+    upData.append(df.iloc[6,1].upper())
+
+    upData.append(df.iloc[7,1].upper())
+
     league_pred = df.iloc[23:58, 2].reset_index(drop =True)
-    
-    df_league = pd.DataFrame(table_league)
-
+    df_league = pd.DataFrame(data[0])
     df_league['Predictions'] = league_pred
-
     league = df_league.to_dict('records')
+    upData.append(league)
 
-    return league
+    semi_pred = df.iloc[69:71, 2].reset_index(drop =True)
+    df_semi = pd.DataFrame(data[1])
+    df_semi['Predictions'] = semi_pred
+    semi = df_semi.to_dict('records')
+    upData.append(semi)
+
+    final_pred = df.iloc[77:78, 2].reset_index(drop =True)
+    df_final = pd.DataFrame(data[2])
+    df_final['Predictions'] = final_pred
+    final = df_final.to_dict('records')
+    upData.append(final)
+
+    semiteam_pred = df.iloc[61:65, 1].reset_index(drop =True)
+    df_semiteam = pd.DataFrame(data[3])
+    df_semiteam['Predictions'] = semiteam_pred
+    semiteam = df_semiteam.to_dict('records')
+    upData.append(semiteam)
+
+    players_pred = df.iloc[84:88, 1].reset_index(drop =True)
+    df_players = pd.DataFrame(data[4])
+    df_players['Predictions'] = players_pred
+    players = df_players.to_dict('records')
+    upData.append(players)
+
+    return upData
 
     # table = dash_table.DataTable(
     #                             id='datatable-league-predictions',

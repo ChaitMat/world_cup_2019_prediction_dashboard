@@ -15,32 +15,59 @@ from calculate_score import calculate_score
 from display_individual_data import dispIndvData
 from layouts import showData, uploadShowData
 
-@app.callback(Output('datatable-league-predictions', 'data'),
+@app.callback(
+              [
+               Output('name', 'value'), Output('emno', 'value'),
+               Output('datatable-league-predictions', 'data'),
+               Output('datatable-semi-final-predictions', 'data'),
+               Output('datatable-final-predictions', 'data'),
+               Output('datatable-semi-final-teams-predictions', 'data'),
+               Output('datatable-players-predictions', 'data'),
+              ],
               [Input('upload-data', 'contents')],
               [State('datatable-league-predictions', 'data'),
+              State('datatable-semi-final-predictions', 'data'),
+              State('datatable-final-predictions', 'data'),
+              State('datatable-semi-final-teams-predictions', 'data'),
+              State('datatable-players-predictions', 'data'),
               State('upload-data', 'filename')])
               
-def upload_data(excel, table_league, filename):
-    if table_league is not None:
+def upload_data(excel, league, semi, final, semiTeam, players, filename):
+    if league is not None:
         if excel is not None:
             content_type, content_string = excel.split(',')
 
             decoded = base64.b64decode(content_string)
 
+            data = []
+
+            data.append(league)
+            data.append(semi)
+            data.append(final)
+            data.append(semiTeam)
+            data.append(players)
 
             try:
                 if 'xls' in filename:
-                    print(table_league)
+                    updated_updated = getIndvData(decoded,data)
+
+                    name= updated_updated[0]
+                    emno = updated_updated[1]
+                    upLeague = updated_updated[2]
+                    upSemi = updated_updated[3]
+                    upFinal = updated_updated[4]
+                    upSemiTeam = updated_updated[5]
+                    upPlayers = updated_updated[6]
+
+                    return name, emno, upLeague, upSemi, upFinal, upSemiTeam, upPlayers
 
             except Exception as e:
                 print(e)
                 return '404'
 
-            # link = "/submit/name="+ dataTable[6]+'&emno='+dataTable[5]
 
-            # uploadDataLayout = uploadShowData(dataTable, link)
-                
-    return table_league
+           
+    return league
     
 
 

@@ -133,7 +133,7 @@ def uploadLayout():
                                         
                                         html.H3('Finals'),
                                         dash_table.DataTable(
-                                        id='datatable-semi-final-predictions',
+                                        id='datatable-final-predictions',
                                         data=dataTable[2].to_dict('records'),
                                         columns=[{"name": i, "id": i} for i in dataTable[2].columns], 
                                         editable=True,
@@ -145,7 +145,7 @@ def uploadLayout():
                                         
                                         html.H3('Semi Final Teams'),
                                         dash_table.DataTable(
-                                        id='datatable-semi-final-predictions',
+                                        id='datatable-semi-final-teams-predictions',
                                         data=dataTable[3].to_dict('records'),
                                         columns=[{"name": i, "id": i} for i in dataTable[3].columns], 
                                         editable=True,
@@ -156,7 +156,7 @@ def uploadLayout():
                                         
                                         html.H3('Players'),
                                         dash_table.DataTable(
-                                        id='datatable-semi-final-predictions',
+                                        id='datatable-p-predictions',
                                         data=dataTable[4].to_dict('records'),
                                         columns=[{"name": i, "id": i} for i in dataTable[4].columns], 
                                         editable=True,

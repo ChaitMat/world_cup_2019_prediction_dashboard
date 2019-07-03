@@ -5,6 +5,7 @@ import sqlite3
 
 from get_emno import getEmno
 from update_points import updatePoints
+from update_rank import updateRank
 
 def updateResults():
 
@@ -37,6 +38,8 @@ def updateResults():
 
     for i in emno:
         updatePoints(i)
+
+    updateRank()
 
 
 if __name__ == "__main__":
