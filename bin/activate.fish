@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/cmm/My_Projects/03_World_Cup_Prediction_2019/app"
+set -gx VIRTUAL_ENV "/home/in000308/Documents/Predict&WIN/world_cup_2019_prediction_dashboard/app"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
